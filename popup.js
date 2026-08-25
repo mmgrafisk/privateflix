@@ -34,9 +34,9 @@ function mediaFacts(metadata) {
 
 async function applyPageMetadata(metadata) {
   elements.facts.textContent = mediaFacts(metadata);
-  if (!metadata?.thumbnailUrl) return;
+  if (!metadata?.thumbnailUrl||!await hasMediaAccess(metadata.thumbnailUrl)) return;
   try {
-    const response=await fetch(metadata.thumbnailUrl,{cache:"no-store",credentials:"include",referrer:activeTab?.url,referrerPolicy:"strict-origin-when-cross-origin"});
+    const response=await fetch(metadata.thumbnailUrl,{cache:"no-store",credentials:"omit",referrer:activeTab?.url,referrerPolicy:"strict-origin-when-cross-origin"});
     if(!response.ok)throw new Error("Poster unavailable");
     const blob=await response.blob();if(blob.size>12*1024*1024||blob.type&&!blob.type.startsWith("image/"))throw new Error("Invalid poster");
     if(coverObjectUrl)URL.revokeObjectURL(coverObjectUrl);coverObjectUrl=URL.createObjectURL(blob);
@@ -47,7 +47,9 @@ async function applyPageMetadata(metadata) {
   } catch { /* Website access can be granted when the user saves. */ }
 }
 
-function mediaPatterns(metadata){return[activeTab?.url,metadata?.thumbnailUrl,metadata?.previewUrl,metadata?.siteIconUrl].flat().map((value)=>{try{const url=new URL(value);return /^https?:$/.test(url.protocol)?`${url.protocol}//${url.host}/*`:""}catch{return""}}).filter((value,index,list)=>value&&list.indexOf(value)===index)}
+function mediaOriginPattern(value){try{const url=new URL(value);return /^https?:$/.test(url.protocol)?`${url.protocol}//${url.host}/*`:""}catch{return""}}
+function mediaPatterns(metadata){return[activeTab?.url,metadata?.thumbnailUrl,metadata?.previewUrl,metadata?.siteIconUrl].flat().map(mediaOriginPattern).filter((value,index,list)=>value&&list.indexOf(value)===index)}
+async function hasMediaAccess(value){const origin=mediaOriginPattern(value);return Boolean(origin&&await chrome.permissions.contains({origins:[origin]}))}
 async function ensureMediaAccess(metadata){const origins=mediaPatterns(metadata);if(!origins.length||await chrome.permissions.contains({origins}))return true;elements.status.textContent="Chrome needs access to the source websites to display posters and previews.";return chrome.permissions.request({origins})}
 
 function setType(type) {

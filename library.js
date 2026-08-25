@@ -19,10 +19,12 @@ function showToast(message){const toast=byId("toast");toast.textContent=message;
 function fillLibrarySelect(id,emptyLabel,values,selected){const select=byId(id);const unique=[...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b,"en",{sensitivity:"base"}));const first=document.createElement("option");first.value="";first.textContent=emptyLabel;select.replaceChildren(first,...unique.map((value)=>{const option=document.createElement("option");option.value=value;option.textContent=value;return option}));select.value=unique.includes(selected)?selected:"";return select.value}
 function renderLibraryFilters(){state.site=fillLibrarySelect("site-filter","All websites",state.items.map((item)=>item.source),state.site);state.performer=fillLibrarySelect("performer-filter","All performers",state.items.flatMap((item)=>item.actors||[]),state.performer)}
 function performerButtons(item){const container=textElement("div","card-performers","");for(const name of item.actors||[]){const button=textElement("button","performer-filter-button",name);button.type="button";button.dataset.performerFilter=name;button.title=`Show videos with ${name}`;container.append(button)}return container}
+function mediaOriginPattern(value){try{const url=new URL(value);return /^https?:$/.test(url.protocol)?`${url.protocol}//${url.host}/*`:""}catch{return""}}
+async function hasMediaAccess(value){const origin=mediaOriginPattern(value);return Boolean(origin&&await chrome.permissions.contains({origins:[origin]}))}
 async function attachRemotePoster(item,cover,poster,onReady){
-  if(!item.thumbnailUrl)return;
+  if(!item.thumbnailUrl||!await hasMediaAccess(item.thumbnailUrl))return;
   try{
-    const response=await fetch(item.thumbnailUrl,{cache:"no-store",credentials:"include",referrer:item.url,referrerPolicy:"strict-origin-when-cross-origin"});
+    const response=await fetch(item.thumbnailUrl,{cache:"no-store",credentials:"omit",referrer:item.url,referrerPolicy:"strict-origin-when-cross-origin"});
     if(!response.ok||Number(response.headers.get("content-length")||0)>12*1024*1024)throw new Error("Poster unavailable");
     const blob=await response.blob();if(blob.size>12*1024*1024||blob.type&&!blob.type.startsWith("image/"))throw new Error("Invalid poster");
     if(!cover.isConnected)return;
