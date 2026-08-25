@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-25T00:00:00Z",
+  "programs": [
+    {
+      "id": "crakrevenue",
+      "name": "CrakRevenue",
+      "category": "network",
+      "websiteUrl": "https://www.crakrevenue.com/",
+      "signupUrl": "https://affiliates.crakrevenue.com/signup-choice",
+      "description": "CPA-netværk med tilbud inden for cam, dating, fansites og beslægtede vertikaler.",
+      "commission": "CPA, RevShare og leadmodeller afhængigt af tilbud",
+      "brands": ["Cam", "Dating", "Fansite", "AI"],
+      "status": "open",
+      "featured": true,
+      "sourceUrl": "https://www.crakrevenue.com/"
+    },
+    {
+      "id": "awempire",
+      "name": "A.W. Empire",
+      "category": "cam",
+      "websiteUrl": "https://www.awempire.com/",
+      "signupUrl": "https://auth.awempire.com/",
+      "description": "Affiliateprogrammet bag blandt andet LiveJasmin med kampagner, whitelabel og model-feed.",
+      "commission": "Op til 45% RevShare eller op til $300 pr. salg",
+      "brands": ["LiveJasmin", "Live cam", "Whitelabel"],
+      "status": "open",
+      "featured": true,
+      "sourceUrl": "https://www.awempire.com/"
+    },
+    {
+      "id": "adultforce",
+      "name": "AdultForce",
+      "category": "network",
+      "websiteUrl": "https://www.adultforce.com/",
+      "signupUrl": "https://www.adultforce.com/",
+      "description": "Adult affiliate-netværk med kendte premiumbrands og forskellige tilbudstyper.",
+      "commission": "Varierer efter brand og kampagne",
+      "brands": ["Brazzers", "Reality Kings", "Nutaku"],
+      "status": "open",
+      "featured": true,
+      "sourceUrl": "https://www.adultforce.com/"
+    },
+    {
+      "id": "cambuilder",
+      "name": "CamBuilder",
+      "category": "cam",
+      "websiteUrl": "https://www.cambuilder.com/",
+      "signupUrl": "https://www.cambuilder.com/",
+      "description": "Streamate-baseret cam-affiliateprogram med mulighed for at bygge eget whitelabel-site.",
+      "commission": "RevShare og programvilkår i partnerpanelet",
+      "brands": ["Streamate", "Whitelabel", "Cam"],
+      "status": "open",
+      "featured": false,
+      "sourceUrl": "https://www.cambuilder.com/"
+    },
+    {
+      "id": "datingfactory",
+      "name": "Dating Factory",
+      "category": "dating",
+      "websiteUrl": "https://datingfactory.com/",
+      "signupUrl": "https://datingfactory.com/partners/",
+      "description": "White-label datingplatform, hvor partnere kan lancere egne nichesider eller promovere eksisterende brands.",
+      "commission": "Revenue share og white-label indtjening",
+      "brands": ["Dating", "White label", "Nichesider"],
+      "status": "open",
+      "featured": false,
+      "sourceUrl": "https://datingfactory.com/partners/"
+    },
+    {
+      "id": "chaturbate",
+      "name": "Chaturbate Affiliates",
+      "category": "cam",
+      "websiteUrl": "https://chaturbate.com/affiliates/",
+      "signupUrl": "https://chaturbate.com/affiliates/",
+      "description": "Direkte affiliateprogram med indtjening på medlemmer, gratis tilmeldinger, broadcasters og henviste affiliates.",
+      "commission": "20% RevShare eller betaling pr. gratis tilmelding",
+      "brands": ["Chaturbate", "Cam", "Whitelabel"],
+      "status": "open",
+      "featured": false,
+      "sourceUrl": "https://chaturbate.com/affiliates/"
+    },
+    {
+      "id": "stripcash",
+      "name": "StripCash",
+      "category": "cam",
+      "websiteUrl": "https://stripcash.com/",
+      "signupUrl": "https://stripcash.com/",
+      "description": "Det officielle affiliateprogram for Stripchat med værktøjer til cam-trafik.",
+      "commission": "Programmodeller og satser fremgår af partnerpanelet",
+      "brands": ["Stripchat", "Cam"],
+      "status": "open",
+      "featured": false,
+      "sourceUrl": "https://stripcash.com/"
+    },
+    {
+      "id": "bongacash",
+      "name": "BongaCash",
+      "category": "cam",
+      "websiteUrl": "https://bongacash.com/",
+      "signupUrl": "https://bongacash.com/",
+      "description": "Affiliateprogrammet for BongaCams med PPL, PPS, RevShare og referral-muligheder.",
+      "commission": "Op til 25% RevShare, PPL eller kombineret PPS + RevShare",
+      "brands": ["BongaCams", "Cam", "Referral"],
+      "status": "open",
+      "featured": false,
+      "sourceUrl": "https://bongacash.com/"
+    }
+  ]
+}
