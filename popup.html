@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PrivateFlix</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="popup-page">
+  <main class="popup-card">
+    <div class="brand"><span class="brand-mark">P</span><span>PrivateFlix</span></div>
+    <div id="preview" class="popup-preview"></div>
+    <label>Titel<input id="title" type="text"></label>
+    <label>Tags <span class="muted">adskilt med komma</span><input id="tags" type="text" placeholder="favorit, senere"></label>
+    <button id="save" class="primary">Gem denne side</button>
+    <button id="openLibrary" class="secondary">Åbn mit bibliotek</button>
+    <button id="openAffiliates" class="secondary">Åbn affiliate-katalog</button>
+    <p id="message" class="message" aria-live="polite"></p>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>
