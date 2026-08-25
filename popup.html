@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>PrivateFlix</title>
+    <link id="page-favicon" rel="icon" href="icons/privateflix-32.png" type="image/png">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <section id="project-workspace" class="popup-workspace" hidden>
+      <header><span>PW</span><strong>Project Workspace</strong></header>
+      <p>WEEKLY OVERVIEW</p><h1>Project tracker</h1>
+      <div class="popup-metrics"><article><span>Open tasks</span><strong>12</strong></article><article><span>Complete</span><strong>74%</strong></article></div>
+      <div class="popup-task"><i></i><div><strong>Finalize launch schedule</strong><span>In review · Aug 28</span></div><b>82%</b></div>
+      <div class="popup-task"><i></i><div><strong>Update partner brief</strong><span>In progress · Aug 29</span></div><b>64%</b></div>
+      <button data-restore-privateflix type="button">Workspace settings</button>
+    </section>
+    <main id="privateflix-popup" class="popup-shell">
+      <header class="popup-header">
+        <a class="brand" href="library.html" target="_blank" aria-label="Open the PrivateFlix library">
+          <span class="brand-symbol"><img class="brand-logo" src="icons/privateflix.png" alt=""></span>
+          <span class="brand-wordmark"><strong>Private<span>Flix</span></strong></span>
+        </a>
+        <div class="header-actions"><button id="shield-button" class="icon-button" type="button" aria-label="Activate Privacy Shield" title="Privacy Shield · Ctrl+Shift+X">◆</button><button id="open-library-top" class="icon-button" type="button" aria-label="Open full library" title="Open full library">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5M19 5l-8 8M19 14v5H5V5h5"/></svg>
+        </button></div>
+      </header>
+
+      <section id="unsupported" class="notice" hidden>
+        <span class="notice-icon">!</span>
+        <div><strong>This page cannot be saved</strong><p>Open a regular website, then try again.</p></div>
+      </section>
+
+      <section id="save-panel" aria-labelledby="save-heading">
+        <p class="eyebrow">PRIVATE LIBRARY</p>
+        <h1 id="save-heading">Save this page.</h1>
+        <div class="current-page">
+          <div id="page-cover" class="mini-cover" aria-hidden="true"><span id="page-initial">P</span></div>
+          <div class="page-copy">
+            <strong id="page-title">Reading current page…</strong>
+            <span id="page-domain">PrivateFlix</span>
+            <span id="page-facts" class="page-facts">Checking video details…</span>
+          </div>
+          <span id="saved-state" class="saved-pill" hidden>Saved</span>
+        </div>
+
+        <form id="save-form">
+          <label for="type">Save as</label>
+          <div class="type-grid" id="type-grid">
+            <button class="type-option" type="button" data-type="chat"><span>◇</span>Character</button>
+            <button class="type-option" type="button" data-type="image"><span>▧</span>Image</button>
+            <button class="type-option" type="button" data-type="video"><span>▶</span>Video</button>
+            <button class="type-option" type="button" data-type="voice"><span>◉</span>Voice</button>
+            <button class="type-option" type="button" data-type="link"><span>↗</span>Link</button>
+          </div>
+          <input id="type" name="type" type="hidden" value="link">
+
+          <label for="tags">Tags <span>optional</span></label>
+          <input id="tags" name="tags" type="text" autocomplete="off" placeholder="favorite, character, prompt">
+
+          <label for="note">Private note <span>optional</span></label>
+          <textarea id="note" name="note" rows="2" placeholder="What do you want to remember?"></textarea>
+
+          <button id="save-button" class="primary-button" type="submit">
+            <span>Save to PrivateFlix</span><span aria-hidden="true">→</span>
+          </button>
+          <p id="status" class="form-status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="recent" aria-labelledby="recent-heading">
+        <div class="section-heading">
+          <h2 id="recent-heading">Recently saved</h2>
+          <button id="open-library" class="text-button" type="button">View library</button>
+        </div>
+        <div id="recent-list" class="recent-list"></div>
+      </section>
+
+      <footer><span><i></i> Stored locally in this browser</span><span>18+</span></footer>
+    </main>
+    <script src="preview-shim.js"></script>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
