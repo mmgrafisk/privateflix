@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PrivateFlix – Mit bibliotek</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark">P</span><span>PrivateFlix</span></div>
+      <nav class="main-nav" aria-label="Hovedmenu"><a href="library.html" aria-current="page">Bibliotek</a><a href="affiliates.html">Affiliate-katalog</a></nav>
+      <div class="header-menu-wrap">
+        <button id="menuButton" class="menu-button" type="button" aria-expanded="false" aria-controls="headerMenu" aria-label="Åbn administrationsmenu">
+          <span class="burger-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>Menu</span>
+        </button>
+        <div id="headerMenu" class="header-menu" role="menu" hidden>
+          <p class="menu-heading">Bibliotek</p>
+          <button id="importBookmarks" type="button" role="menuitem"><span class="menu-item-icon">↳</span><span><strong>Importér bogmærker</strong><small>Vælg mapper og enkelte links</small></span></button>
+          <button id="refreshMetadata" type="button" role="menuitem"><span class="menu-item-icon">↻</span><span><strong>Opdatér metadata</strong><small>Hent filmdata og kontrollér slettede links</small></span></button>
+          <div class="menu-separator" role="separator"></div>
+          <button id="backup" type="button" role="menuitem"><span class="menu-item-icon">↓</span><span><strong>Eksportér backup</strong><small>Gem biblioteket som JSON</small></span></button>
+          <button id="restoreButton" type="button" role="menuitem"><span class="menu-item-icon">↑</span><span><strong>Indlæs backup</strong><small>Gendan et tidligere bibliotek</small></span></button>
+        </div>
+        <input id="restore" class="visually-hidden" type="file" accept="application/json">
+      </div>
+    </div>
+  </header>
+  <main class="library-shell">
+    <section class="hero compact-hero">
+      <div class="hero-content">
+        <p class="eyebrow">DIT PRIVATE BIBLIOTEK</p>
+        <h1>Find det, du gemte.</h1>
+        <p class="hero-copy">Samlet, søgbart og gemt lokalt i Chrome.</p>
+      </div>
+      <div class="hero-stats" aria-label="Biblioteksoversigt">
+        <div class="hero-stat"><strong id="statTotal">0</strong><span>film</span></div>
+        <div class="hero-stat"><strong id="statFavorites">0</strong><span>favoritter</span></div>
+        <div class="hero-stat"><strong id="statWatched">0</strong><span>set</span></div>
+        <div class="hero-stat"><strong id="statAlternatives">0</strong><span>alternativer</span></div>
+      </div>
+    </section>
+    <section class="toolbar" aria-label="Filtre">
+      <input id="search" type="search" aria-label="Søg i biblioteket" placeholder="Søg i titler, hjemmesider og tags…">
+      <select id="siteFilter" aria-label="Filtrér efter hjemmeside"><option value="">Alle hjemmesider</option></select>
+      <select id="categoryFilter" aria-label="Filtrér efter tag"><option value="">Alle tags</option></select>
+      <select id="performerFilter" aria-label="Filtrér efter performer"><option value="">Alle performers</option></select>
+      <select id="studioFilter" aria-label="Filtrér efter produktionsselskab"><option value="">Alle selskaber</option></select>
+      <select id="statusFilter" aria-label="Filtrér efter status">
+        <option value="">Alt indhold</option><option value="later">Se senere</option><option value="watched">Set</option><option value="favorite">Favoritter</option>
+      </select>
+    </section>
+    <div class="library-meta"><span id="count">0 film</span><div class="view-controls"><label for="gridSize">Kort pr. række</label><select id="gridSize"><option value="3">3</option><option value="4">4</option><option value="5" selected>5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option></select><select id="sort" aria-label="Sortér film"><option value="newest">Nyeste først</option><option value="recently-opened">Senest åbnet</option><option value="oldest">Ældste først</option><option value="title">Titel A–Å</option><option value="duration-desc">Længste først</option><option value="duration-asc">Korteste først</option><option value="quality-desc">Højeste kvalitet</option><option value="quality-asc">Laveste kvalitet</option></select></div></div>
+    <section id="grid" class="video-grid"></section>
+    <section id="empty" class="empty-state" hidden><div class="empty-icon">▶</div><h2>Biblioteket er tomt</h2><p>Gem en side med extension-knappen eller importér dine bogmærker.</p></section>
+    <section id="noResults" class="empty-state" hidden><h2>Ingen film matcher</h2><p>Prøv en anden søgning eller nulstil filtrene.</p><button id="resetFilters" type="button" class="secondary">Nulstil filtre</button></section>
+  </main>
+
+  <dialog id="importDialog">
+    <form method="dialog" class="dialog-card">
+      <div class="dialog-header"><div><p class="eyebrow">IMPORT</p><h2>Vælg bogmærker</h2></div><button value="cancel" class="icon-button" aria-label="Luk">×</button></div>
+      <input id="bookmarkSearch" type="search" aria-label="Søg i bogmærker" placeholder="Søg i mapper, titler eller hjemmesider…">
+      <div class="select-row"><button id="selectAll" type="button" class="text-button">Markér alle viste</button><button id="selectNone" type="button" class="text-button">Fjern markeringer</button><span id="selectedCount">0 valgt</span></div>
+      <div id="bookmarkList" class="bookmark-list"></div>
+      <div class="dialog-actions"><button value="cancel" class="secondary">Annuller</button><button id="confirmImport" value="default" class="primary">Importér valgte</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="editDialog">
+    <form method="dialog" class="dialog-card narrow">
+      <div class="dialog-header"><h2>Redigér</h2><button value="cancel" class="icon-button" aria-label="Luk">×</button></div>
+      <input id="editId" type="hidden">
+      <label>Titel<input id="editTitle" required></label>
+      <label>Link<input id="editUrl" type="url" required></label>
+      <label>Tags<input id="editTags" placeholder="adskilt med komma"></label>
+      <label>Kategorier<input id="editCategories" placeholder="adskilt med komma"></label>
+      <label>Performers<input id="editPerformers" placeholder="adskilt med komma"></label>
+      <label>Produktionsselskab<input id="editStudio" placeholder="fx selskab eller studio"></label>
+      <div class="field-grid">
+        <label>Længde<input id="editDuration" placeholder="fx 18:42"></label>
+        <label>Maks. kvalitet<input id="editQuality" placeholder="fx 1080p eller 4K"></label>
+      </div>
+      <label>Status<select id="editStatus"><option value="later">Se senere</option><option value="watched">Set</option></select></label>
+      <div class="dialog-actions"><button value="cancel" class="secondary">Annuller</button><button id="saveEdit" value="default" class="primary">Gem</button></div>
+    </form>
+  </dialog>
+  <dialog id="qualityDialog">
+    <form method="dialog" class="dialog-card narrow">
+      <div class="dialog-header"><div><p class="eyebrow">BEDRE KVALITET</p><h2>Find en bedre udgave</h2></div><button value="cancel" class="icon-button" aria-label="Luk">×</button></div>
+      <p id="qualityTitle" class="quality-search-title"></p>
+      <div id="qualityCurrent" class="quality-current"></div>
+      <p class="muted quality-help">Søg efter en bedre udgave, indsæt kandidatens link, og sammenlign den med din gemte version.</p>
+      <div class="quality-search-grid">
+        <button type="button" class="quality-search-button" data-quality="1080p"><strong>Full HD</strong><span>1080p eller bedre</span></button>
+        <button type="button" class="quality-search-button" data-quality="4K"><strong>4K</strong><span>2160p / UHD</span></button>
+        <button type="button" class="quality-search-button" data-quality="8K"><strong>8K</strong><span>4320p</span></button>
+        <button type="button" class="quality-search-button" data-quality="same-site"><strong>Samme side</strong><span>Søg kun på kildesitet</span></button>
+        <button type="button" class="quality-search-button wide" data-quality="all"><strong>Søg bredt</strong><span>Find andre udgaver på tværs af hjemmesider</span></button>
+      </div>
+      <div class="candidate-box">
+        <label for="candidateUrl">Kandidatlink</label>
+        <div class="candidate-input-row"><input id="candidateUrl" type="url" placeholder="https://…"><button id="analyzeCandidate" type="button" class="primary">Analysér</button></div>
+        <p id="candidateStatus" class="candidate-status muted" role="status"></p>
+        <div id="candidateComparison" class="candidate-comparison" hidden></div>
+        <div id="candidateActions" class="dialog-actions" hidden>
+          <button id="saveAlternative" type="button" class="secondary">Gem som alternativ</button>
+          <button id="replaceVersion" type="button" class="primary">Erstat foretrukken version</button>
+        </div>
+      </div>
+      <section class="alternatives-section" aria-labelledby="alternativesHeading">
+        <div class="section-heading"><h3 id="alternativesHeading">Gemte alternativer</h3><span id="alternativesCount">0</span></div>
+        <div id="alternativeList" class="alternative-list"></div>
+      </section>
+    </form>
+  </dialog>
+  <script src="library.js"></script>
+</body>
+</html>

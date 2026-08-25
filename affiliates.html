@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PrivateFlix – Affiliate-katalog</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand"><span class="brand-mark">P</span><span>PrivateFlix</span></div>
+      <nav class="main-nav" aria-label="Hovedmenu">
+        <a href="library.html">Bibliotek</a>
+        <a href="affiliates.html" aria-current="page">Affiliate-katalog</a>
+      </nav>
+      <button id="managePrograms" class="menu-button" type="button"><span aria-hidden="true">⚙</span><span>Administrér</span></button>
+    </div>
+  </header>
+
+  <main class="library-shell affiliate-shell">
+    <section class="hero affiliate-hero">
+      <div class="hero-content">
+        <p class="eyebrow">INDTJENINGSMULIGHEDER</p>
+        <h1>Affiliate-katalog</h1>
+        <p class="hero-copy">Samlet overblik over programmer inden for adult, cam og dating.</p>
+      </div>
+      <div class="affiliate-hero-summary">
+        <strong id="affiliateTotal">0</strong><span>aktive programmer</span>
+        <small id="affiliateUpdated">Startliste</small>
+      </div>
+    </section>
+
+    <section class="affiliate-toolbar" aria-label="Filtre">
+      <input id="affiliateSearch" type="search" aria-label="Søg i affiliateprogrammer" placeholder="Søg efter program, brand eller tilbud…">
+      <select id="affiliateCategory" aria-label="Filtrér efter kategori">
+        <option value="">Alle kategorier</option>
+        <option value="network">Netværk</option>
+        <option value="cam">Cam</option>
+        <option value="dating">Dating</option>
+        <option value="content">Adult content</option>
+        <option value="fansite">Fansite</option>
+      </select>
+      <select id="affiliateAccountStatus" aria-label="Filtrér efter min status">
+        <option value="">Alle statusser</option>
+        <option value="not-joined">Ikke tilmeldt</option>
+        <option value="applied">Ansøgt</option>
+        <option value="active">Aktiv partner</option>
+        <option value="paused">Sat på pause</option>
+      </select>
+      <button id="syncPrograms" class="secondary" type="button">Hent opdateringer</button>
+    </section>
+
+    <div class="affiliate-directory-meta"><span id="affiliateCount">0 programmer</span><span id="syncState" class="muted" role="status"></span></div>
+    <section id="affiliateGrid" class="affiliate-grid"></section>
+    <section id="affiliateEmpty" class="empty-state" hidden><h2>Ingen programmer matcher</h2><p>Prøv en anden søgning eller kategori.</p></section>
+  </main>
+
+  <dialog id="manageDialog" class="manage-programs-dialog">
+    <div class="dialog-card">
+      <div class="dialog-header"><div><p class="eyebrow">KATALOG</p><h2>Administrér affiliateprogrammer</h2></div><button id="closeManage" type="button" class="icon-button" aria-label="Luk">×</button></div>
+
+      <section class="feed-settings" aria-labelledby="feedHeading">
+        <div class="section-heading"><h3 id="feedHeading">Automatiske opdateringer</h3><span id="feedLastSync">Ikke synkroniseret</span></div>
+        <p class="muted">Angiv en HTTPS-adresse til din egen JSON-fil. Extensionen kontrollerer feedet højst én gang i døgnet og gemmer en valideret kopi lokalt.</p>
+        <label for="feedUrl">JSON-feed</label>
+        <div class="feed-url-row"><input id="feedUrl" type="url" placeholder="https://ditdomæne.dk/privateflix/affiliate-programs.json"><button id="saveFeed" type="button" class="secondary">Gem URL</button><button id="syncFeed" type="button" class="primary">Hent nu</button></div>
+        <p id="feedMessage" class="candidate-status muted" role="status"></p>
+      </section>
+
+      <div class="program-admin-actions">
+        <button id="newProgram" type="button" class="secondary">Tilføj program</button>
+        <button id="exportPrograms" type="button" class="secondary">Eksportér JSON</button>
+        <button id="importProgramsButton" type="button" class="secondary">Importér JSON</button>
+        <input id="importPrograms" class="visually-hidden" type="file" accept="application/json">
+        <button id="restoreDefaultPrograms" type="button" class="text-button danger">Gendan startliste</button>
+      </div>
+
+      <div class="program-manager-layout">
+        <div id="adminProgramList" class="admin-program-list" aria-label="Programliste"></div>
+        <form id="programForm" class="program-form">
+          <input id="programId" type="hidden">
+          <div class="section-heading"><h3 id="programFormHeading">Tilføj program</h3><span>Lokale ændringer</span></div>
+          <label>Navn<input id="programName" required maxlength="100"></label>
+          <div class="field-grid">
+            <label>Kategori<select id="programCategory"><option value="network">Netværk</option><option value="cam">Cam</option><option value="dating">Dating</option><option value="content">Adult content</option><option value="fansite">Fansite</option></select></label>
+            <label>Min status<select id="programAccountStatus"><option value="not-joined">Ikke tilmeldt</option><option value="applied">Ansøgt</option><option value="active">Aktiv partner</option><option value="paused">Sat på pause</option></select></label>
+          </div>
+          <label>Hjemmeside<input id="programWebsite" type="url" required placeholder="https://…"></label>
+          <label>Tilmelding<input id="programSignup" type="url" required placeholder="https://…"></label>
+          <label>Mit affiliatelink <input id="programAffiliateUrl" type="url" placeholder="https://… (valgfrit)"></label>
+          <label>Indtjeningsmodel<input id="programCommission" maxlength="180" placeholder="fx RevShare, CPA eller PPL"></label>
+          <label>Brands/tags<input id="programBrands" placeholder="adskilt med komma"></label>
+          <label>Beskrivelse<textarea id="programDescription" rows="4" maxlength="500"></textarea></label>
+          <label class="checkbox-label"><input id="programFeatured" type="checkbox"> Fremhæv programmet</label>
+          <div class="dialog-actions"><button id="cancelProgramEdit" type="button" class="secondary">Nulstil</button><button class="primary" type="submit">Gem program</button></div>
+        </form>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="affiliates.js"></script>
+</body>
+</html>
