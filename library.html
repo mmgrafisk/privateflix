@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Library — PrivateFlix</title>
+  <link id="page-favicon" rel="icon" href="icons/privateflix-32.png" type="image/png">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="library.css">
+</head>
+<body>
+  <section id="project-workspace" class="project-workspace" hidden aria-labelledby="workspace-title">
+    <header class="workspace-topbar"><div class="workspace-mark" aria-hidden="true">PW</div><strong>Project Workspace</strong><span>Q3 planning</span><button data-restore-privateflix type="button" aria-label="Return to private workspace">Workspace settings</button></header>
+    <main class="workspace-main">
+      <div class="workspace-heading"><div><p>OPERATIONS OVERVIEW</p><h1 id="workspace-title">Weekly project tracker</h1></div><button type="button">+ New task</button></div>
+      <div class="workspace-stats"><article><span>Open tasks</span><strong>12</strong><small>3 due this week</small></article><article><span>Completion</span><strong>74%</strong><small>On track</small></article><article><span>Team updates</span><strong>8</strong><small>Last 7 days</small></article></div>
+      <div class="workspace-table" role="table" aria-label="Project tasks">
+        <div class="workspace-row workspace-labels" role="row"><span>Task</span><span>Owner</span><span>Status</span><span>Due</span><span>Progress</span></div>
+        <div class="workspace-row" role="row"><strong>Finalize launch schedule</strong><span>Alex M.</span><span class="status-review">In review</span><span>Aug 28</span><i style="--progress:82%"></i></div>
+        <div class="workspace-row" role="row"><strong>Update partner brief</strong><span>Jamie K.</span><span class="status-active">In progress</span><span>Aug 29</span><i style="--progress:64%"></i></div>
+        <div class="workspace-row" role="row"><strong>Quality check assets</strong><span>Taylor R.</span><span class="status-done">Complete</span><span>Aug 30</span><i style="--progress:100%"></i></div>
+        <div class="workspace-row" role="row"><strong>Prepare weekly report</strong><span>Alex M.</span><span class="status-active">In progress</span><span>Sep 02</span><i style="--progress:41%"></i></div>
+      </div>
+      <div class="workspace-notes"><div><h2>Meeting notes</h2><p>Confirm milestones with the team and circulate the revised timeline before Friday.</p></div><div><h2>Next checkpoint</h2><p>Monday, 09:30 · Weekly operations review</p></div></div>
+    </main>
+  </section>
+
+  <div id="privateflix-app" class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#library" data-view-link="library" aria-label="PrivateFlix home"><span class="brand-symbol"><img class="brand-logo" src="icons/privateflix.png" alt=""></span><span class="brand-wordmark"><strong>Private<span>Flix</span></strong></span></a>
+      <nav aria-label="PrivateFlix">
+        <button class="nav-item active" data-view="library"><span>▦</span>My Library</button>
+        <button class="nav-item" data-view="discover"><span>◇</span>AI Discover</button>
+      </nav>
+      <div class="nav-menu">
+        <button id="nav-menu-toggle" class="nav-item menu-toggle" type="button" aria-expanded="false" aria-controls="secondary-nav"><span aria-hidden="true">☰</span>Menu<span class="menu-chevron" aria-hidden="true">⌄</span></button>
+        <div id="secondary-nav" class="secondary-nav" hidden>
+          <button class="nav-item" data-view="guides"><span>▤</span>How-to guides</button>
+          <button class="nav-item" data-view="settings"><span>⚙</span>Settings</button>
+          <button class="nav-item" data-view="privacy"><span>◆</span>Privacy &amp; data</button>
+        </div>
+      </div>
+      <div class="sidebar-footer"><span>PrivateFlix 0.4.2</span><span>18+</span></div>
+    </aside>
+
+    <main>
+      <div class="global-actions"><button id="shield-button" class="shield-button" type="button" title="Privacy Shield · Ctrl+Shift+X" aria-label="Activate Privacy Shield">◆ <span>Privacy Shield</span></button></div>
+      <section id="library-view" class="view active" aria-labelledby="library-heading">
+        <header class="page-header"><div><p class="eyebrow">YOUR COLLECTION</p><h1 id="library-heading" tabindex="-1">My Library</h1><p><span id="library-count">0</span> saved items · stored locally</p></div><button id="add-item" class="primary-action" type="button"><span>＋</span>Add a link</button></header>
+        <div class="toolbar"><label class="search-box"><span aria-hidden="true">⌕</span><span class="sr-only">Search your library</span><input id="search" type="search" placeholder="Search titles, websites, performers and tags"></label><label class="select-box"><span class="sr-only">Filter by website</span><select id="site-filter"><option value="">All websites</option></select></label><label class="select-box"><span class="sr-only">Filter by performer</span><select id="performer-filter"><option value="">All performers</option></select></label><label class="sort-box"><span class="sr-only">Sort library</span><select id="sort"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="title">Title A–Z</option><option value="site">Website A–Z</option><option value="performer">Performer A–Z</option></select></label></div>
+        <div class="filter-row" role="group" aria-label="Filter saved items"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="favorites">Favorites</button><button class="filter" data-filter="chat">Characters</button><button class="filter" data-filter="image">Images</button><button class="filter" data-filter="video">Videos</button><button class="filter" data-filter="voice">Voice</button><button class="filter" data-filter="link">Links</button></div>
+        <div id="library-grid" class="library-grid"></div>
+        <div id="empty-state" class="empty-state" hidden><div class="empty-art"><span>PF</span><i></i><i></i><i></i></div><p class="eyebrow">YOUR PRIVATE SPACE</p><h2>Nothing saved here yet.</h2><p>Open the PrivateFlix toolbar button on any page to save it, or add a link manually.</p><button id="empty-add" class="primary-action" type="button">Add your first link</button></div>
+      </section>
+
+      <section id="discover-view" class="view" aria-labelledby="discover-heading">
+        <header class="page-header discover-header"><div><p class="eyebrow">CURATED AI CREATION TOOLS</p><h1 id="discover-heading" tabindex="-1">Create more. Keep it organized.</h1><p>Approved adult AI platforms for images, videos and original characters.</p></div></header>
+        <div class="disclosure-banner"><span>i</span><p><strong>Affiliate disclosure.</strong> PrivateFlix may earn a commission if you join through a recommendation. This never changes the price you pay, and your library data is never shared.</p></div>
+        <div id="catalog-status" class="catalog-status" aria-live="polite">Loading AI recommendations…</div><div id="catalog-grid" class="catalog-grid"></div>
+        <a class="disclosure-link" href="https://privateflix-hub.mmgrafisk.chatgpt.site/affiliate-disclosure" target="_blank" rel="noreferrer">Read the full affiliate disclosure ↗</a>
+      </section>
+
+      <section id="guides-view" class="view" aria-labelledby="guides-heading">
+        <header class="page-header"><div><p class="eyebrow">PRIVATEFLIX HOW-TO</p><h1 id="guides-heading" tabindex="-1">Learn PrivateFlix and create safely.</h1><p>Quick product walkthroughs plus practical, non-graphic 18+ AI creation guides.</p></div></header>
+        <div id="guides-status" class="catalog-status" aria-live="polite">Loading how-to guides…</div><div id="guides-grid" class="guides-grid"></div>
+      </section>
+
+      <section id="settings-view" class="view" aria-labelledby="settings-heading">
+        <header class="page-header"><div><p class="eyebrow">PRIVATEFLIX SETTINGS</p><h1 id="settings-heading" tabindex="-1">Make PrivateFlix yours.</h1><p>Control previews, display privacy and local media maintenance.</p></div></header>
+        <div class="settings-grid">
+          <article class="media-refresh-panel"><div><h2>Refresh posters &amp; previews</h2><p>Fetch current poster URLs, video previews, duration, quality, performers and source logos from saved pages.</p><p id="media-refresh-status" class="media-refresh-status" role="status" aria-live="polite">Images load directly from their source websites and are not copied into PrivateFlix.</p></div><button id="refresh-media" class="secondary-action" type="button">Refresh all media</button></article>
+          <article class="settings-panel"><div><h2>Blur previews</h2><p>Blur every poster and disable hover playback across your library.</p></div><label class="switch"><input id="blur-previews" type="checkbox"><span></span><em class="sr-only">Blur all previews</em></label></article>
+          <article class="settings-panel"><div><h2>Discreet titles</h2><p>Hide saved titles until you hover or focus a card.</p></div><label class="switch"><input id="discreet-mode" type="checkbox"><span></span><em class="sr-only">Enable discreet titles</em></label></article>
+          <article class="danger-panel"><div><h2>Clear local library</h2><p>Permanently remove every saved item from this browser.</p></div><button id="clear-library" type="button">Clear library</button></article>
+        </div>
+      </section>
+
+      <section id="privacy-view" class="view" aria-labelledby="privacy-heading">
+        <header class="page-header"><div><p class="eyebrow">LOCAL-FIRST BY DESIGN</p><h1 id="privacy-heading" tabindex="-1">Your library. Your browser.</h1><p>PrivateFlix is designed to know as little about your private collection as possible.</p></div></header>
+        <div class="privacy-grid"><article><span>◆</span><h2>Local library, remote posters</h2><p>Saved URLs, notes, tags and favorites stay in this browser. Poster and preview images load directly from their source websites and are not cached by PrivateFlix.</p></article><article><span>⊘</span><h2>No passive monitoring</h2><p>PrivateFlix never scans, clears or uploads your browsing history. It reads the active page after a direct save action, and reads saved pages only when you explicitly run Refresh all media.</p></article><article><span>▦</span><h2>Privacy Shield</h2><p>Instantly replace PrivateFlix with a neutral project tracker. This is visual concealment, not encryption or device-level protection.</p></article></div>
+        <div class="data-panel"><div><p class="eyebrow">PORTABLE DATA</p><h2>Keep a backup when you want one.</h2><p>Export your full library as JSON, or import it into another Chrome profile.</p></div><div class="data-actions"><button id="export-library" class="secondary-action" type="button">Export library</button><button id="import-library" class="secondary-action" type="button">Import library</button><input id="import-file" type="file" accept="application/json" hidden></div></div>
+        <p class="privacy-link-row"><a href="https://privateflix-hub.mmgrafisk.chatgpt.site/privacy" target="_blank" rel="noreferrer">Read the website privacy notice ↗</a></p>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="item-dialog"><form id="item-form" method="dialog"><div class="dialog-header"><div><p class="eyebrow" id="dialog-eyebrow">ADD TO LIBRARY</p><h2 id="dialog-title">Save a link</h2></div><button id="close-dialog" class="icon-button" type="button" aria-label="Close">×</button></div><input id="item-id" type="hidden"><label for="item-url">URL</label><input id="item-url" type="url" required placeholder="https://…"><label for="item-title">Title</label><input id="item-title" type="text" required maxlength="180" placeholder="What should this be called?"><label for="item-type">Type</label><select id="item-type"><option value="chat">Character or chat</option><option value="image">Image</option><option value="video">Video</option><option value="voice">Voice</option><option value="link">Link</option></select><label for="item-tags">Tags <span>comma separated</span></label><input id="item-tags" type="text" placeholder="favorite, character, prompt"><label for="item-note">Private note</label><textarea id="item-note" rows="4" maxlength="1000" placeholder="What do you want to remember?"></textarea><div class="dialog-actions"><button id="delete-item" class="danger-button" type="button" hidden>Delete</button><div><button id="cancel-dialog" class="secondary-action" type="button">Cancel</button><button class="primary-action" type="submit">Save item</button></div></div></form></dialog>
+  <dialog id="guide-dialog" class="guide-dialog"><article><button id="close-guide" class="icon-button guide-close" type="button" aria-label="Close how-to">×</button><p class="eyebrow">PRIVATEFLIX HOW-TO · 18+</p><h2 id="guide-title"></h2><p id="guide-summary" class="guide-summary"></p><div id="guide-content" class="guide-content"></div><div id="guide-recommendation" class="guide-recommendation" hidden></div></article></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="preview-shim.js"></script><script type="module" src="library.js"></script>
+</body>
+</html>

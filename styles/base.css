@@ -1,0 +1,190 @@
+:root {
+  color-scheme: dark;
+  --bg: #080709;
+  --surface: #100d11;
+  --surface-2: #171218;
+  --surface-3: #201720;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --text: #f7f2f4;
+  --muted: #a99fa5;
+  --muted-2: #756d72;
+  --rose: #ff4f87;
+  --rose-light: #ff82a9;
+  --rose-soft: rgba(255, 79, 135, 0.13);
+  --success: #68d6a3;
+  --danger: #ff7b8a;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; scrollbar-width: none; -ms-overflow-style: none; }
+*::-webkit-scrollbar { display: none; width: 0; height: 0; }
+[hidden] { display: none !important; }
+
+html { overflow-y: scroll; background: var(--bg); }
+
+body {
+  margin: 0;
+  min-width: 0;
+  background:
+    radial-gradient(circle at 70% -20%, rgba(255, 79, 135, 0.09), transparent 32%),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea, select { font: inherit; }
+
+button, a { -webkit-tap-highlight-color: transparent; }
+
+button { color: inherit; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--rose-light);
+  outline-offset: 3px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(145deg, var(--rose-light), var(--rose));
+  box-shadow: 0 8px 25px rgba(255, 79, 135, 0.23);
+  color: white;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.brand-symbol {
+  position: relative;
+  display: grid;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  place-items: center;
+}
+
+.brand-symbol::before {
+  position: absolute;
+  inset: 11px 5px;
+  border-radius: 45%;
+  background: rgba(255, 46, 126, 0.14);
+  box-shadow: 0 0 24px rgba(255, 46, 126, 0.22);
+  content: "";
+  filter: blur(7px);
+}
+
+.brand-logo {
+  position: relative;
+  z-index: 1;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 15px rgba(255, 38, 119, 0.18));
+}
+
+.brand-wordmark {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  line-height: 1;
+}
+
+.brand-wordmark strong {
+  font-size: 19px;
+  font-weight: 850;
+  letter-spacing: -0.045em;
+}
+
+.brand-wordmark strong span {
+  background: linear-gradient(95deg, #ff789f, #ff3c83);
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+}
+
+.brand-wordmark small {
+  color: #95878f;
+  font-size: 12px;
+  font-weight: 760;
+  letter-spacing: 0.105em;
+  white-space: nowrap;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--rose-light);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+}
+
+.icon-button {
+  display: inline-grid;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.025);
+  cursor: pointer;
+}
+
+.icon-button:hover { border-color: var(--line-strong); background: rgba(255, 255, 255, 0.055); }
+.icon-button svg { width: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+
+.primary-button {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  border-radius: 13px;
+  padding: 0 17px;
+  background: linear-gradient(135deg, #ff6a99, var(--rose));
+  box-shadow: 0 10px 30px rgba(255, 79, 135, 0.2);
+  color: white;
+  cursor: pointer;
+  font-weight: 780;
+}
+
+.primary-button:hover { filter: brightness(1.07); transform: translateY(-1px); }
+.primary-button:disabled { cursor: wait; filter: saturate(0.5); opacity: 0.7; transform: none; }
+
+.text-button {
+  border: 0;
+  padding: 3px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.text-button:hover { color: var(--text); }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
